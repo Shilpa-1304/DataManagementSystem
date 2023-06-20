@@ -5,5 +5,18 @@ const DataSchema=new mongoose.Schema({
         require:true
     }
 });
-
-module.exports=mongoose.model('DataSchema',DataSchema);
+const documentSchema=new mongoose.Schema({
+    // parentIndex:{
+    //     type:Number,
+    //     require:true
+    // },
+    // folderIndex:{
+    //     type:Number,
+    //     require:true
+    // },
+    folderName:{
+        type:String,
+        require:true
+    }
+});
+module.exports=mongoose.model('documentSchema',documentSchema);

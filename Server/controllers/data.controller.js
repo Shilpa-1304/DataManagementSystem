@@ -1,4 +1,4 @@
-const dataModel=require('../models/data.model');
+const documentSchema=require('../models/data.model');
 const upload = require("../middleware/upload.middleware");
 // const dbConfig = require("../config/db");
 
@@ -56,3 +56,16 @@ module.exports.uploadFilesController = async (req, res) => {
       });
     }
   };
+
+module.exports.createFolderController=async(req,res)=>{
+  const {folderName}=req.body
+  console.log('Folder name in controller: ',folderName);
+  const folderCreated=await documentSchema.create({folderName});
+  console.log(`${folderCreated} created successfully !`)
+  res.send(folderCreated);
+}
+
+module.exports.getParentFolderControler=async(req,res)=>{
+  const text=await dataModel.find();
+    res.send(text);
+}
