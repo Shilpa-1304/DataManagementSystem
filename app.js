@@ -1,7 +1,7 @@
 const express=require("express");
 const mongoose=require('mongoose');
 const app=express();
-const cors = require("cors");
+var cors = require('cors');
 const PORT=process.env.port || 8080;
 
 const bodyParser = require("body-parser");
@@ -15,6 +15,13 @@ MONGODB_URL='mongodb+srv://shilpa:shilpa2811@datamanagementsystem.dgjtctc.mongod
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+// app.use((_req, res, next) => {
+//   res.header('Access-Control-Allow-Origin', '*');
+//   res.header('Access-Control-Allow-Headers', '*');
+
+//   next();
+// });
 app.use(routes);
 
 

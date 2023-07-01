@@ -1,7 +1,5 @@
-const documentSchema=require('../models/data.model');
+const {documentschemas,folderSchemas}=require('../models/data.model');
 const upload = require("../middleware/upload.middleware");
-// const dbConfig = require("../config/db");
-
 const MongoClient = require("mongodb").MongoClient;
 const GridFSBucket = require("mongodb").GridFSBucket;
 
@@ -10,29 +8,31 @@ MONGODB_URL='mongodb+srv://shilpa:shilpa2811@datamanagementsystem.dgjtctc.mongod
 const baseUrl = "http://localhost:8080/files/";
 
 const mongoClient = new MongoClient(MONGODB_URL);
-module.exports.getDataController=async(req,res)=>{
-    const text=await dataModel.find();
-    res.send(text);
-}
-module.exports.saveDataController=async(req,res)=>{
-    const {text}=req.body
-    const textAdded=await dataModel.create({text});
-    console.log(`${textAdded} successfully !`)
-    res.send(textAdded);
-}
-module.exports.updateDataController=async(req,res)=>{
-    const {_id,text}=req.body;
-    const updatedText=await dataModel.findByIdAndUpdate(_id,{text});
-    console.log(`Text afer updation/deletion: ${updatedText}`);
-    res.send(updatedText);
-}
 
-module.exports.deleteDatacontroller=async(req,res)=>{
-    const {_id}=req.body;
-    const deletedText=await dataModel.findByIdAndDelete(_id);
-    console.log(`Text afer updation/deletion: ${deletedText}`);
-    res.send(deletedText);
-}
+// module.exports.getDataController=async(req,res)=>{
+//     const text=await folderSchema.find();
+//     res.send(text);
+// }
+// module.exports.saveDataController=async(req,res)=>{
+//     const {text}=req.body
+//     const textAdded=await dataModel.create({text});
+//     console.log(`${textAdded} successfully !`)
+//     res.send(textAdded);
+// }
+// module.exports.updateDataController=async(req,res)=>{
+//     const {_id,text}=req.body;
+//     const updatedText=await dataModel.findByIdAndUpdate(_id,{text});
+//     console.log(`Text afer updation/deletion: ${updatedText}`);
+//     res.send(updatedText);
+// }
+ 
+// module.exports.deleteDatacontroller=async(req,res)=>{
+//     const {_id}=req.body;
+//     const deletedText=await dataModel.findByIdAndDelete(_id);
+//     console.log(`Text afer updation/deletion: ${deletedText}`);
+//     res.send(deletedText);
+// }
+
 module.exports.uploadFilesController = async (req, res) => {
     try {
         console.log('Inside upload controller');
@@ -60,12 +60,24 @@ module.exports.uploadFilesController = async (req, res) => {
 module.exports.createFolderController=async(req,res)=>{
   const {folderName}=req.body
   console.log('Folder name in controller: ',folderName);
-  const folderCreated=await documentSchema.create({folderName});
+  const folderCreated=await documentschemas.create({folderName});
   console.log(`${folderCreated} created successfully !`)
   res.send(folderCreated);
+} 
+
+module.exports.getAllFolderController=async(req,res)=>{
+  const text=await documentschemas.find();
+    res.send(text);
+}
+module.exports.getFolderContentController =async(req,res)=>{
+  // let query = {_id: new ObjectId(req.params.id)};
+  const folderId=req.params['id'];
+  console.log('Requested ID : ',req.params['id']);
+  const result=await documentschemas.findById(folderId);
+  console.log(result)
+  res.send(result);
 }
 
-module.exports.getParentFolderControler=async(req,res)=>{
-  const text=await dataModel.find();
-    res.send(text);
+module.exports.deleteFolderController =async(req,res)=>{
+  
 }

@@ -1,12 +1,15 @@
 const {Router}=require('express');
-const {getDataController, saveDataController,deleteDatacontroller,updateDataController,uploadFilesController,createFolderController,getParentFolderControler}=require('../controllers/data.controller');
+const {uploadFilesController,createFolderController,getParentFolderControler,getAllFolderController,getFolderContentController,deleteFolderController}=require('../controllers/data.controller');
 const router=Router();
+console.log('Reached router')
+// router.get('/',getDataController)
+// router.post('/saveData',saveDataController)
+// router.post('/updateData',updateDataController)
 
-router.get('/',getDataController)
-router.post('/saveData',saveDataController)
-router.post('/updateData',updateDataController)
-router.post('/deleteData',deleteDatacontroller)
-router.post("/upload", uploadFilesController);
+// router.post('/deleteData',deleteDatacontroller)
+router.get("/",getAllFolderController);
+router.get("/:id",getFolderContentController);
 router.post("/createFolder",createFolderController);
-router.get("/getParentFolder",getParentFolderControler)
+router.delete("/:id",deleteFolderController);
+router.post("/upload", uploadFilesController);
 module.exports=router;
