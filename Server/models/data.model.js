@@ -11,12 +11,15 @@ const folderSchema=new mongoose.Schema({
         type:String,
         required:true
     },
+    path:{
+        type:String,
+        required:true
+    },
     folderName:{
         type:String,
         require:true
     }
 })
-
 const documentschemas=mongoose.model('documentschemas',documentSchema);
 const folderSchemas=mongoose.model('folderSchema',folderSchema);
 module.exports= {documentschemas,folderSchemas}

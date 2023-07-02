@@ -60,7 +60,7 @@ module.exports.uploadFilesController = async (req, res) => {
 module.exports.createFolderController=async(req,res)=>{
   const {folderName}=req.body
   console.log('Folder name in controller: ',folderName);
-  const folderCreated=await documentschemas.create({folderName});
+  const folderCreated=await folderSchemas.create({folderName});
   console.log(`${folderCreated} created successfully !`)
   res.send(folderCreated);
 } 
@@ -73,11 +73,21 @@ module.exports.getFolderContentController =async(req,res)=>{
   // let query = {_id: new ObjectId(req.params.id)};
   const folderId=req.params['id'];
   console.log('Requested ID : ',req.params['id']);
-  const result=await documentschemas.findById(folderId);
-  console.log(result)
-  res.send(result);
+  const parentFolder=await documentschemas.findById(folderId);
+  const subFolders=await folderSchemas.find();
+  console.log('Parent folder: ',parentFolder);
+  console.log('Sub-Folders : ',subFolders);
+  res.send(parentFolder);
 }
 
+module.exports.createSubFolderController=async(req,res)=>{
+  console.log('first created.')
+  // const {folderName}=req.body
+  // console.log('Folder name in controller: ',folderName);
+  // const subFolderCreated=await folderSchemas.create({folderName});
+  // console.log(`${subFolderCreated} created successfully !`)
+  // res.send(subFolderCreated);
+}
 module.exports.deleteFolderController =async(req,res)=>{
   
 }
